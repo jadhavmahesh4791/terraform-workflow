@@ -1,0 +1,30 @@
+env:
+      AWS_REGION: 'us-east-1'   # # Updated to a more recent version - As on 26th Nov. 2025
+      TF_VERSION: '1.4.0'       # # Updated to a more recent version - As on 26th Nov. 2025
+      TFLINT_VERSION: '0.46.1'  # Updated to a more recent version - As on 26th Nov. 2025
+      TFSEC_VERSION: '1.28.1'   # # Updated to a more recent version - As on 26th Nov. 2025
+
+
+##################################
+
+TFLint:
+
+TFLint is a static analysis linter specifically designed for Terraform. It checks for: 
+
+** Possible errors: Such as illegal instance types or invalid resource configurations.
+
+** Deprecated syntax: Flags the use of removed or outdated Terraform features.
+
+** Unused declarations: Identifies variables, outputs, or resources that are defined but not used.
+
+** Best practices and naming conventions: Enforces adherence to recommended coding standards.
+
+** Provider-specific issues: TFLint can be extended with rulesets for specific cloud providers (e.g., AWS, Azure) to catch provider-specific configuration errors.
+
+** Installation and Usage of TFLint:
+
+###
+
+TFLint can be installed via various methods depending on the operating system (e.g., Homebrew for macOS, Chocolatey for Windows, or a bash script for Linux). You can also use its Docker image. Once installed, navigate to your Terraform project directory and run: 'tflint'
+
+##
