@@ -1,5 +1,5 @@
 env:
-      AWS_REGION: 'us-east-1'   # # Updated to a more recent version - As on 26th Nov. 2025
+      AWS_REGION: 'ap-south-1'   # # Updated to a more recent version - As on 26th Nov. 2025
       TF_VERSION: '1.4.0'       # # Updated to a more recent version - As on 26th Nov. 2025
       TFLINT_VERSION: '0.46.1'  # Updated to a more recent version - As on 26th Nov. 2025
       TFSEC_VERSION: '1.28.1'   # # Updated to a more recent version - As on 26th Nov. 2025
