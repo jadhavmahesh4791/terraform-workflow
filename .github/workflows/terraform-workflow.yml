@@ -8,6 +8,11 @@ on:
     branches:
       - main
 
+# 1. Added Mutex: Prevents multiple workflows from running on the same state simultaneously
+concurrency:
+  group: terraform-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false # Set to false to ensure 'apply' isn't interrupted
+
 jobs:
   terraform:
     name: 'Terraform lint, Security Check and Deploy'
@@ -18,22 +23,24 @@ jobs:
       TF_VERSION: '1.4.0'
       TFLINT_VERSION: '0.46.1'
       TFSEC_VERSION: '1.28.1'
+      # 2. Global timeout variable for easy maintenance
+      TF_LOCK_TIMEOUT: '10m'
 
     steps:
     - name: 'Checkout GitHub repository'
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4 # Updated to v4 for 2025 compatibility
 
     - name: 'Configure AWS Credentials'
       uses: 'aws-actions/configure-aws-credentials@v1'
       with:
-        aws-access-key-id: ${{secret.AWS_ACCESS_KEY_ID}}
-        aws-secret-access-key: ${{secret.AWS_SECRET_ACCESS_KEY}}
-        aws-region: ${{env.AWS_REGION}}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
 
     - name: 'Set up Terraform'
-      uses: hashicorp/terraform@v1
+      uses: hashicorp/setup-terraform@v3 # Updated to setup-terraform v3
       with:
-        terraform_version: ${{env.TFSEC_VERSION}}
+        terraform_version: ${{ env.TF_VERSION }} # Fixed variable to use TF_VERSION
     
     - name: 'Install TFlint'
       run: |
@@ -66,8 +73,10 @@ jobs:
       run: tfsec .
 
     - name: 'Terraform Plan'
-      run: terraform Plan
+      # 3. Added -lock-timeout to Plan
+      run: terraform plan -lock-timeout=${{ env.TF_LOCK_TIMEOUT }} -out=tfplan
 
-    - name: 'Terrform Apply'
+    - name: 'Terraform Apply'
       if : github.ref == 'refs/heads/main'
-      run: terraform apply -auto-approve tfplan
+      # 4. Added -lock-timeout to Apply
+      run: terraform apply -lock-timeout=${{ env.TF_LOCK_TIMEOUT }} -auto-approve tfplan
