@@ -8,27 +8,32 @@ on:
     branches:
       - main
 
-# 1. Added Mutex: Prevents multiple workflows from running on the same state simultaneously
 concurrency:
   group: terraform-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: false # Set to false to ensure 'apply' isn't interrupted
+  cancel-in-progress: false 
 
 jobs:
   terraform:
     name: 'Terraform lint, Security Check and Deploy'
     runs-on: ubuntu-latest
 
+    # Required permissions for the auto-commit action to push changes back to the repo
+    permissions:
+      contents: write
+
     env:
       AWS_REGION: 'ap-south-1'
       TF_VERSION: '1.4.0'
       TFLINT_VERSION: '0.46.1'
       TFSEC_VERSION: '1.28.1'
-      # 2. Global timeout variable for easy maintenance
       TF_LOCK_TIMEOUT: '10m'
 
     steps:
     - name: 'Checkout GitHub repository'
-      uses: actions/checkout@v4 # Updated to v4 for 2025 compatibility
+      uses: actions/checkout@v4
+      with:
+        # Fetch all history so the auto-commit action can push correctly
+        fetch-depth: 0
 
     - name: 'Configure AWS Credentials'
       uses: 'aws-actions/configure-aws-credentials@v1'
@@ -38,9 +43,9 @@ jobs:
         aws-region: ${{ env.AWS_REGION }}
 
     - name: 'Set up Terraform'
-      uses: hashicorp/setup-terraform@v3 # Updated to setup-terraform v3
+      uses: hashicorp/setup-terraform@v3
       with:
-        terraform_version: ${{ env.TF_VERSION }} # Fixed variable to use TF_VERSION
+        terraform_version: ${{ env.TF_VERSION }}
     
     - name: 'Install TFlint'
       run: |
@@ -59,7 +64,14 @@ jobs:
       run: terraform init
 
     - name: 'Terraform Format'
-      run: terraform fmt
+      # Removed -check so that it actually modifies the files locally in the runner
+      run: terraform fmt -recursive
+
+    - name: 'Auto-commit Terraform formatting changes'
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "style: auto-fix terraform formatting"
+        file_pattern: '*.tf *.tfvars'
 
     - name: 'Terraform Validate'
       run: terraform validate
@@ -73,10 +85,8 @@ jobs:
       run: tfsec .
 
     - name: 'Terraform Plan'
-      # 3. Added -lock-timeout to Plan
       run: terraform plan -lock-timeout=${{ env.TF_LOCK_TIMEOUT }} -out=tfplan
 
     - name: 'Terraform Apply'
       if : github.ref == 'refs/heads/main'
-      # 4. Added -lock-timeout to Apply
       run: terraform apply -lock-timeout=${{ env.TF_LOCK_TIMEOUT }} -auto-approve tfplan
