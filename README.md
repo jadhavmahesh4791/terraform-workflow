@@ -1,1 +1,19 @@
 # terraform-workflow
+
+# git commands to push the code
+
+
+# Navigate to directory where the code is placed
+# git init
+
+# git pull https://github.com/jadhavmahesh4791/terraform-workflow.git
+
+# git checkout -b mahesh
+# git status
+# git add .
+# git commit -m "jay-ganesh"
+# git status
+# git remote add origin https://github.com/jadhavmahesh4791/terraform-workflow.git
+
+# git push --set-upstream origin mahesh
+
