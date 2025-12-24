@@ -27,4 +27,5 @@ TFLint is a static analysis linter specifically designed for Terraform. It check
 
 TFLint can be installed via various methods depending on the operating system (e.g., Homebrew for macOS, Chocolatey for Windows, or a bash script for Linux). You can also use its Docker image. Once installed, navigate to your Terraform project directory and run: 'tflint'
 
-##
+=======
+
