@@ -14,7 +14,7 @@ resource "aws_instance" "mahesh_space_vm" {
 
   # FIX 2: Encrypt Root Block Device
   root_block_device {
-    encrypted = true 
+    encrypted = true
     # Optional: specify a KMS key ID if not using default AWS managed key
     # kms_key_id = "your-kms-key-arn" 
   }

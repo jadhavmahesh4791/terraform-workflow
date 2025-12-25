@@ -29,3 +29,13 @@ TFLint can be installed via various methods depending on the operating system (e
 
 =======
 
+VPC ID with S3 Endpoint - vpc-0dc4494930c69cc1d
+
+Subnet Groups Assouciated with above VPC ID - 
+
+subnet-0947bacf2e72efb16 / netcore-vpc-subnet-private1-ap-south-1a
+
+subnet-0ce180d72a7ade74d / netcore-vpc-subnet-private2-ap-south-1b
+
+vpce-090e8fecc4d00ac92 / netcore-vpc-vpce-s3
+
