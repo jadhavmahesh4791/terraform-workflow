@@ -1,5 +1,5 @@
 env:
-      AWS_REGION: 'ap-south-1'   # # Updated to a more recent version - As on 26th Nov. 2025
+      AWS_REGION: 'us-east-1'   # # Updated to a more recent version - As on 26th Nov. 2025
       TF_VERSION: '1.4.0'       # # Updated to a more recent version - As on 26th Nov. 2025
       TFLINT_VERSION: '0.46.1'  # Updated to a more recent version - As on 26th Nov. 2025
       TFSEC_VERSION: '1.28.1'   # # Updated to a more recent version - As on 26th Nov. 2025
@@ -27,4 +27,15 @@ TFLint is a static analysis linter specifically designed for Terraform. It check
 
 TFLint can be installed via various methods depending on the operating system (e.g., Homebrew for macOS, Chocolatey for Windows, or a bash script for Linux). You can also use its Docker image. Once installed, navigate to your Terraform project directory and run: 'tflint'
 
-##
+=======
+
+VPC ID with S3 Endpoint - vpc-0dc4494930c69cc1d
+
+Subnet Groups Assouciated with above VPC ID - 
+
+subnet-0947bacf2e72efb16 / netcore-vpc-subnet-private1-ap-south-1a
+
+subnet-0ce180d72a7ade74d / netcore-vpc-subnet-private2-ap-south-1b
+
+vpce-090e8fecc4d00ac92 / netcore-vpc-vpce-s3
+
