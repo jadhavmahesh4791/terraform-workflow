@@ -12,6 +12,7 @@ resource "aws_security_group" "allow_ssh" {
   }
 
   egress {
+    description = "Security group rule does not have a description"
     from_port   = 0
     to_port     = 0
     protocol    = "-1" # Allows all outbound traffic
