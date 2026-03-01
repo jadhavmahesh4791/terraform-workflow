@@ -22,7 +22,7 @@ jobs:
       contents: write
 
     env:
-      AWS_REGION: 'ap-south-1'
+      AWS_REGION: 'us-east-1'
       TF_VERSION: '1.4.0'
       TFLINT_VERSION: '0.46.1'
       TFSEC_VERSION: '1.28.1'
