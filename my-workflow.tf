@@ -10,7 +10,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "my-tf-state-git-workflow"
+    bucket         = "my-tf-state-git-workflow-1"
     key            = "prod/terraform.tfstate"
     region         = "ap-south-1"
     encrypt        = true
