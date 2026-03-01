@@ -12,16 +12,17 @@ terraform {
   backend "s3" {
     bucket         = "my-tf-state-git-workflow-1"
     key            = "prod/terraform.tfstate"
-    region         = "ap-south-1"
+    region         = "us-east-1"
     encrypt        = true
   }
 }
+
 
 provider "aws" {
   region = "ap-south-1"
 
   assume_role {
-    role_arn = "arn:aws:iam::408190482558:role/my-master-role"
+    role_arn = "arn:aws:iam::315219809704:role/my-master-role"
   }
 
   default_tags {
