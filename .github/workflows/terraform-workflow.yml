@@ -71,7 +71,7 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "style: auto-fix terraform formatting"
-        file_pattern: '*.tf *.tfvars'
+        file_pattern: '*.tf'
 
     - name: 'Terraform Validate'
       run: terraform validate
